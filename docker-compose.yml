@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: taskify
+      POSTGRES_PASSWORD: taskify
+      POSTGRES_DB: taskify
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./apps/backend
+    restart: always
+    environment:
+      DATABASE_URL: postgres://taskify:taskify@db:5432/taskify
+      NODE_ENV: development
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - ./apps/backend:/app
+      - /app/node_modules
+
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./apps/frontend:/app
+    ports:
+      - '5173:5173'
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
