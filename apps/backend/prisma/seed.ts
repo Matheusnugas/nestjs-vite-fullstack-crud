@@ -1,43 +1,50 @@
-import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcryptjs';
+import { PrismaClient, Prisma } from '@prisma/client';
+type User = Prisma.UserGetPayload<{}>;
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // Cria um usuário com senha hash
-  const password = await bcrypt.hash('123456', 10);
-  const user = await prisma.user.upsert({
-    where: { email: 'user@example.com' },
-    update: {},
-    create: {
-      name: 'Usuário Exemplo',
-      email: 'user@example.com',
-      password,
-      tasks: {
-        create: [
-          {
-            title: 'Primeira tarefa',
-            description: 'Esta é a primeira tarefa seed',
-            status: 'PENDING',
-          },
-          {
-            title: 'Tarefa concluída',
-            description: 'Esta tarefa já está concluída',
-            status: 'COMPLETED',
-          },
-        ],
-      },
+  console.log('🔄 Creating test user...');
+
+  const user: User = await prisma.user.create({
+    data: {
+      name: 'El Matheus',
+      email: 'matheus@example.com',
+      password: 'hashed-password-aqui',
     },
   });
 
-  console.log('Seed concluído. Usuário criado:', user.email);
+  console.log('✅ User created:', user);
+
+  console.log('🔄 Creating tasks...');
+  await prisma.task.createMany({
+    data: [
+      {
+        title: 'Create frontend layout',
+        description: 'Build the base structure using Vite + React',
+        status: 'PENDING',
+        userId: user.id,
+      },
+      {
+        title: 'Implement authentication',
+        description: 'Login and registration with JWT',
+        status: 'COMPLETED',
+        userId: user.id,
+      },
+    ],
+  });
+
+  console.log('✅ Tasks created successfully');
 }
 
 main()
+  .then(() => {
+    console.log('🌱 Seed completed');
+  })
   .catch((e) => {
-    console.error(e);
+    console.error('❌ Error while seeding:', e);
     process.exit(1);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
+  .finally(() => {
+    prisma.$disconnect();
   });

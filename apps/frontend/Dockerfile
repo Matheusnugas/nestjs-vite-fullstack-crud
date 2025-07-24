@@ -1,12 +1,11 @@
-# Production-ready Dockerfile for Vite+React frontend
-FROM node:20-alpine AS builder
+# Development-only Dockerfile for Vite
+FROM node:20-alpine
+
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
-COPY . .
-RUN npm run build
 
-FROM nginx:alpine AS runner
-COPY --from=builder /app/dist /usr/share/nginx/html
-EXPOSE 5173
-CMD ["nginx", "-g", "daemon off;"] 
+COPY . .
+
+CMD ["npm", "run", "dev"]
