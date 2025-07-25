@@ -1,6 +1,6 @@
 # 🚀 Taskify - Task Management System
 
-A complete task management application built with **NestJS** (backend), **React** (frontend), **PostgreSQL** and **Docker**, using **Turborepo** for monorepo management.
+A complete task management application built with **NestJS** (backend), **React** (frontend), **PostgreSQL** and **Docker**, using **Turborepo** for monorepo management and **Vite** for frontend build tooling.
 
 ## ⚠️ Disclaimer
 
@@ -40,6 +40,7 @@ A complete task management application built with **NestJS** (backend), **React*
 
 ### Frontend
 - **[React 19](https://react.dev/)** - UI library
+- **[Vite](https://vitejs.dev/)** - Build tool and dev server
 - **[TypeScript](https://www.typescriptlang.org/)** - Static typing
 - **[TanStack Query](https://tanstack.com/query/latest)** - State management
 - **[React Router DOM](https://reactrouter.com/)** - Navigation
@@ -94,6 +95,9 @@ cp .env.example .env
 
 ### 3. Run with Docker Compose
 ```bash
+# Make sure you're in the project root directory
+cd taskify
+
 # Development
 npm run dev:docker
 
@@ -110,12 +114,19 @@ docker-compose --env-file .env up --build
 
 ### Run all tests
 ```bash
+# From the frontend directory
 cd apps/frontend
 npx cypress run
+
+# Or from the project root
+npm run cypress:open
 ```
 
 ### Run specific tests
 ```bash
+# From the frontend directory
+cd apps/frontend
+
 # Authentication tests
 npx cypress run --spec "cypress/e2e/login.cy.ts"
 npx cypress run --spec "cypress/e2e/register.cy.ts"
@@ -126,7 +137,12 @@ npx cypress run --spec "cypress/e2e/tasks.cy.ts"
 
 ### Open Cypress in interactive mode
 ```bash
+# From the frontend directory
+cd apps/frontend
 npx cypress open
+
+# Or from the project root
+npm run cypress:open
 ```
 
 ## 📋 Test Scenarios Covered
@@ -240,19 +256,10 @@ npx prisma generate
 - **✅ Validation tests** implemented
 - **✅ Edge case tests** included
 
-## 🚀 Deployment
-
-The project is configured for Docker deployment:
-
-```bash
-# Production build
-docker-compose -f docker-compose.prod.yml up --build
-```
-
 ## 📝 License
 
 This project was developed as part of a technical challenge.
 
 ---
 
-**Built with ❤️ using NestJS, React, TypeScript, Docker and Turborepo**
+**Built with ❤️ using NestJS, React, Vite, TypeScript, Docker and Turborepo**
