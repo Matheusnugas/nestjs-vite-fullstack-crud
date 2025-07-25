@@ -1,163 +1,183 @@
-# 🚀 Taskify - Sistema de Gerenciamento de Tarefas
+# 🚀 Taskify - Task Management System
 
-Uma aplicação completa para gerenciamento de tarefas desenvolvida com **NestJS** (backend), **React** (frontend), **PostgreSQL** e **Docker**.
+A complete task management application built with **NestJS** (backend), **React** (frontend), **PostgreSQL** and **Docker**, using **Turborepo** for monorepo management.
 
-## 🎯 Funcionalidades
+## ⚠️ Disclaimer
 
-### ✅ Autenticação
-- **Registro de usuário** com validação
-- **Login** com JWT
-- **Proteção de rotas** autenticadas
-- **Logout** seguro
+**This project is NOT production-ready and is intended for development/testing purposes only.** It was developed as part of a technical challenge and should not be used in production environments without proper security reviews, environment configurations, and additional hardening.
 
-### ✅ Gerenciamento de Tarefas (CRUD Completo)
-- **Criar** novas tarefas (título e descrição obrigatórios)
-- **Listar** todas as tarefas do usuário
-- **Editar** título e descrição das tarefas
-- **Marcar como concluída/pendente**
-- **Excluir** tarefas com confirmação
-- **Filtrar** por status (Todas, Pendentes, Concluídas)
+## 🎯 Features
 
-### ✅ Interface Responsiva
-- Design moderno com **Tailwind CSS**
-- Animações suaves com **Framer Motion**
-- Modais interativos
-- Feedback visual com toasts
+### ✅ Authentication
+- **User registration** with validation
+- **Login** with JWT
+- **Protected routes** with authentication
+- **Secure logout**
 
-## 🛠️ Tecnologias Utilizadas
+### ✅ Task Management (Complete CRUD)
+- **Create** new tasks (title and description required)
+- **List** all user tasks
+- **Edit** task title and description
+- **Mark as completed/pending**
+- **Delete** tasks with confirmation
+- **Filter** by status (All, Pending, Completed)
+
+### ✅ Responsive Interface
+- Modern design with **Tailwind CSS**
+- Smooth animations with **Framer Motion**
+- Interactive modals
+- Visual feedback with toasts
+
+## 🛠️ Technologies Used
 
 ### Backend
-- **NestJS** - Framework Node.js
-- **TypeScript** - Tipagem estática
-- **Prisma** - ORM para PostgreSQL
-- **JWT** - Autenticação
-- **class-validator** - Validação de dados
-- **Swagger** - Documentação da API
+- **[NestJS](https://nestjs.com/)** - Node.js framework
+- **[TypeScript](https://www.typescriptlang.org/)** - Static typing
+- **[Prisma](https://www.prisma.io/)** - PostgreSQL ORM
+- **[JWT](https://jwt.io/)** - Authentication
+- **[class-validator](https://github.com/typestack/class-validator)** - Data validation
+- **[Swagger](https://swagger.io/)** - API documentation
 
 ### Frontend
-- **React 19** - Biblioteca UI
-- **TypeScript** - Tipagem estática
-- **TanStack Query** - Gerenciamento de estado
-- **React Router DOM** - Navegação
-- **Tailwind CSS** - Estilização
-- **Framer Motion** - Animações
-- **Axios** - Cliente HTTP
+- **[React 19](https://react.dev/)** - UI library
+- **[TypeScript](https://www.typescriptlang.org/)** - Static typing
+- **[TanStack Query](https://tanstack.com/query/latest)** - State management
+- **[React Router DOM](https://reactrouter.com/)** - Navigation
+- **[Tailwind CSS](https://tailwindcss.com/)** - Styling
+- **[Framer Motion](https://www.framer.com/motion/)** - Animations
+- **[Axios](https://axios-http.com/)** - HTTP client
 
-### Testes
-- **Cypress** - Testes E2E completos
+### Testing
+- **[Cypress](https://www.cypress.io/)** - Complete E2E tests
 
-### Infraestrutura
-- **Docker** - Containerização
-- **PostgreSQL** - Banco de dados
-- **Docker Compose** - Orquestração
+### Infrastructure
+- **[Docker](https://www.docker.com/)** - Containerization
+- **[PostgreSQL](https://www.postgresql.org/)** - Database
+- **[Docker Compose](https://docs.docker.com/compose/)** - Orchestration
 
-## 🚀 Como Executar o Projeto
+### Monorepo Management
+- **[Turborepo](https://turbo.build/repo)** - Monorepo build system
 
-### Pré-requisitos
-- Docker e Docker Compose instalados
-- Node.js 18+ (para desenvolvimento local)
+## 🚀 How to Run the Project
 
-### 1. Clone o repositório
+### Prerequisites
+- Docker and Docker Compose installed
+- Node.js 18+ (for local development)
+
+### 1. Clone the repository
 ```bash
-git clone <url-do-repositorio>
+git clone <repository-url>
 cd taskify
 ```
 
-### 2. Configure as variáveis de ambiente
-Crie um arquivo `.env` na raiz do projeto:
-```env
-POSTGRES_USER=taskify_user
-POSTGRES_PASSWORD=taskify_password
-POSTGRES_DB=taskify_db
-JWT_SECRET=sua_chave_jwt_super_secreta
+### 2. Configure environment variables
+
+#### Root project (for Docker Compose)
+Rename `env.example` to `.env` in the root directory:
+```bash
+cp env.example .env
 ```
 
-### 3. Execute com Docker Compose
+#### Backend
+Rename `apps/backend/.env.example` to `apps/backend/.env`:
 ```bash
-# Desenvolvimento
+cd apps/backend
+cp .env.example .env
+```
+
+#### Frontend
+Rename `apps/frontend/.env.example` to `apps/frontend/.env`:
+```bash
+cd apps/frontend
+cp .env.example .env
+```
+
+### 3. Run with Docker Compose
+```bash
+# Development
 npm run dev:docker
 
-# Ou diretamente com Docker Compose
+# Or directly with Docker Compose
 docker-compose --env-file .env up --build
 ```
 
-### 4. Acesse a aplicação
+### 4. Access the application
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:3000
 - **Swagger Docs**: http://localhost:3000/api
 
-## 🧪 Testes E2E
+## 🧪 E2E Tests
 
-### Executar todos os testes
+### Run all tests
 ```bash
 cd apps/frontend
 npx cypress run
 ```
 
-### Executar testes específicos
+### Run specific tests
 ```bash
-# Testes de autenticação
+# Authentication tests
 npx cypress run --spec "cypress/e2e/login.cy.ts"
 npx cypress run --spec "cypress/e2e/register.cy.ts"
 
-# Testes de tarefas
+# Task management tests
 npx cypress run --spec "cypress/e2e/tasks.cy.ts"
 ```
 
-### Abrir Cypress em modo interativo
+### Open Cypress in interactive mode
 ```bash
 npx cypress open
 ```
 
-## 📋 Cenários de Teste Cobertos
+## 📋 Test Scenarios Covered
 
-### ✅ Autenticação
-- [x] Registro de usuário com sucesso
-- [x] Login com credenciais válidas
-- [x] Logout com confirmação
-- [x] Verificação de estado de autenticação
+### ✅ Authentication
+- [x] User registration success
+- [x] Login with valid credentials
+- [x] Logout with confirmation
+- [x] Authentication state verification
 
-### ✅ Gerenciamento de Tarefas
-- [x] Criação de tarefas (título e descrição obrigatórios)
-- [x] Validação de formulários (campos obrigatórios)
-- [x] Marcar tarefa como concluída
-- [x] Marcar tarefa como pendente
-- [x] Edição de tarefas existentes
-- [x] Exclusão de tarefas com confirmação
-- [x] Filtro por status (Todas, Pendentes, Concluídas)
-- [x] Estado vazio quando não há tarefas
+### ✅ Task Management
+- [x] Task creation (title and description required)
+- [x] Form validation (required fields)
+- [x] Mark task as completed
+- [x] Mark task as pending
+- [x] Edit existing tasks
+- [x] Delete tasks with confirmation
+- [x] Filter by status (All, Pending, Completed)
+- [x] Empty state when no tasks exist
 
-### ✅ Casos Extremos
-- [x] Caracteres especiais em títulos e descrições
-- [x] Textos longos
-- [x] Cancelamento de criação/edição
-- [x] Validações de formulário
+### ✅ Edge Cases
+- [x] Special characters in titles and descriptions
+- [x] Long texts
+- [x] Cancel creation/editing
+- [x] Form validations
 
-## 🏗️ Estrutura do Projeto
+## 🏗️ Project Structure
 
 ```
 taskify/
 ├── apps/
-│   ├── backend/                 # API NestJS
+│   ├── backend/                 # NestJS API
 │   │   ├── src/
-│   │   │   ├── auth/           # Autenticação
-│   │   │   ├── tasks/          # CRUD de tarefas
-│   │   │   ├── users/          # Gerenciamento de usuários
-│   │   │   └── common/         # Utilitários compartilhados
-│   │   └── prisma/             # Schema e migrações
-│   └── frontend/               # Aplicação React
+│   │   │   ├── auth/           # Authentication
+│   │   │   ├── tasks/          # Task CRUD
+│   │   │   ├── users/          # User management
+│   │   │   └── common/         # Shared utilities
+│   │   └── prisma/             # Schema and migrations
+│   └── frontend/               # React application
 │       ├── src/
-│       │   ├── components/     # Componentes reutilizáveis
-│       │   ├── pages/          # Páginas da aplicação
-│       │   ├── hooks/          # Hooks customizados
-│       │   ├── context/        # Contexto de autenticação
-│       │   └── api/            # Cliente HTTP
-│       └── cypress/            # Testes E2E
-├── packages/                   # Pacotes compartilhados
-└── docker-compose.yml         # Orquestração Docker
+│       │   ├── components/     # Reusable components
+│       │   ├── pages/          # Application pages
+│       │   ├── hooks/          # Custom hooks
+│       │   ├── context/        # Authentication context
+│       │   └── api/            # HTTP client
+│       └── cypress/            # E2E tests
+├── packages/                   # Shared packages
+└── docker-compose.yml         # Docker orchestration
 ```
 
-## 🔧 Desenvolvimento Local
+## 🔧 Local Development
 
 ### Backend
 ```bash
@@ -173,7 +193,7 @@ npm install
 npm run dev
 ```
 
-### Banco de Dados
+### Database
 ```bash
 cd apps/backend
 npx prisma migrate dev
@@ -182,57 +202,57 @@ npx prisma generate
 
 ## 📚 API Endpoints
 
-### Autenticação
-- `POST /auth/register` - Registrar usuário
+### Authentication
+- `POST /auth/register` - Register user
 - `POST /auth/login` - Login
 
-### Tarefas (Autenticado)
-- `GET /tasks` - Listar tarefas
-- `POST /tasks` - Criar tarefa
-- `PATCH /tasks/:id` - Atualizar tarefa
-- `DELETE /tasks/:id` - Excluir tarefa
+### Tasks (Authenticated)
+- `GET /tasks` - List tasks
+- `POST /tasks` - Create task
+- `PATCH /tasks/:id` - Update task
+- `DELETE /tasks/:id` - Delete task
 
-### Usuários (Autenticado)
-- `GET /users/me` - Obter dados do usuário
-- `PATCH /users/me` - Atualizar dados do usuário
-- `DELETE /users/me` - Excluir conta
+### Users (Authenticated)
+- `GET /users/me` - Get user data
+- `PATCH /users/me` - Update user data
+- `DELETE /users/me` - Delete account
 
 ## 🎨 Interface
 
-- **Design responsivo** que funciona em desktop e mobile
-- **Animações suaves** para melhor experiência do usuário
-- **Feedback visual** com toasts para todas as ações
-- **Modais interativos** para confirmações
-- **Filtros intuitivos** para organização das tarefas
+- **Responsive design** that works on desktop and mobile
+- **Smooth animations** for better user experience
+- **Visual feedback** with toasts for all actions
+- **Interactive modals** for confirmations
+- **Intuitive filters** for task organization
 
-## 🔒 Segurança
+## 🔒 Security
 
-- **Autenticação JWT** com expiração
-- **Proteção de rotas** no frontend e backend
-- **Validação de dados** em todas as entradas
-- **Políticas de acesso** para recursos
-- **Hash de senhas** com bcrypt
+- **JWT authentication** with expiration
+- **Route protection** on frontend and backend
+- **Data validation** on all inputs
+- **Access policies** for resources
+- **Password hashing** with bcrypt
 
-## 📊 Status dos Testes
+## 📊 Test Status
 
-- **✅ 18 testes E2E** executando com sucesso
-- **✅ Cobertura completa** dos fluxos principais
-- **✅ Testes de validação** implementados
-- **✅ Testes de casos extremos** incluídos
+- **✅ 18 E2E tests** running successfully
+- **✅ Complete coverage** of main flows
+- **✅ Validation tests** implemented
+- **✅ Edge case tests** included
 
-## 🚀 Deploy
+## 🚀 Deployment
 
-O projeto está configurado para deploy com Docker:
+The project is configured for Docker deployment:
 
 ```bash
-# Build de produção
+# Production build
 docker-compose -f docker-compose.prod.yml up --build
 ```
 
-## 📝 Licença
+## 📝 License
 
-Este projeto foi desenvolvido como parte de um desafio técnico.
+This project was developed as part of a technical challenge.
 
 ---
 
-**Desenvolvido com ❤️ usando NestJS, React, TypeScript e Docker**
+**Built with ❤️ using NestJS, React, TypeScript, Docker and Turborepo**
