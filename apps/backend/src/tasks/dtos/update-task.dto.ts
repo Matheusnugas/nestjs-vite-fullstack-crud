@@ -19,4 +19,12 @@ export class UpdateTaskDto {
   @IsOptional()
   @IsEnum(TaskStatus)
   status?: TaskStatus;
+
+  @ApiPropertyOptional({
+    example: 'New description',
+    description: 'New task description',
+  })
+  @IsOptional()
+  @IsString()
+  description?: string;
 }
