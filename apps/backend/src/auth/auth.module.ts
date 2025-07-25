@@ -4,6 +4,7 @@ import { AuthService } from './services/auth.service';
 import { AuthController } from './controllers/auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { PasswordService } from './services/password.service';
+import { PrismaModule } from '../prisma.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { PasswordService } from './services/password.service';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1d' },
     }),
+    PrismaModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, PasswordService],
