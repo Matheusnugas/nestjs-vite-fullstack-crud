@@ -5,9 +5,9 @@ services:
     image: postgres:15-alpine
     restart: always
     environment:
-      POSTGRES_USER: taskify
-      POSTGRES_PASSWORD: taskify
-      POSTGRES_DB: taskify
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - '5432:5432'
     volumes:
@@ -16,23 +16,23 @@ services:
   backend:
     build:
       context: ./apps/backend
-    command: npm run start:dev
-    restart: always
-    ports:
-      - '3000:3000'
-    environment:
-      NODE_ENV: development
-      DATABASE_URL: postgres://taskify:taskify@db:5432/taskify
-    depends_on:
-      - db
+      dockerfile: Dockerfile
     volumes:
       - ./apps/backend:/app
-      - /app/node_modules
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./apps/backend/.env
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      NODE_ENV: development
+    depends_on:
+      - db
 
   frontend:
     build:
       context: ./apps/frontend
-    command: npm run dev
+    command: sh -c "npm install && npm run dev"
     restart: always
     ports:
       - '5173:5173'
@@ -42,6 +42,7 @@ services:
       - backend
     volumes:
       - ./apps/frontend:/app
+      - /app/node_modules
 
 volumes:
   db_data:
