@@ -9,24 +9,19 @@ describe('Auth - Login Flow', () => {
   
     it('should login successfully and redirect to dashboard', () => {
       cy.loginViaUI(email, password);
-      
-      // Verify the dashboard loaded correctly
-      cy.contains(`Welcome, ${name}`, { timeout: 10000 }).should('be.visible');
+
+      cy.contains(`Welcome, ${name}`, { timeout: 10000 }).should("be.visible");
     });
 
     it('should handle authentication state correctly', () => {
       cy.loginViaUI(email, password);
       
-      // Verify token is stored
-      cy.window().its('localStorage.token').should('exist');
+      cy.window().its("localStorage.token").should("exist");
+
+      cy.contains(`Welcome, ${name}`).should("be.visible");
+
+      cy.url().should("include", "/dashboard");
       
-      // Verify user data is loaded
-      cy.contains(`Welcome, ${name}`).should('be.visible');
-      
-      // Verify we're on dashboard
-      cy.url().should('include', '/dashboard');
-      
-      // Verify dashboard elements are present
       cy.contains('button', '+ New Task').should('be.visible');
       cy.contains('button', 'Logout').should('be.visible');
     });
