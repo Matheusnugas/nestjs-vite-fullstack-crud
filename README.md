@@ -97,11 +97,17 @@ cd apps/frontend
 cp .env.example .env
 ```
 
-### 3. Run with Docker Compose
+### 3. Install dependencies
 ```bash
 # Make sure you're in the project root directory
 cd taskify
 
+# Install all dependencies (root, backend and frontend)
+npm run install:all
+```
+
+### 4. Run with Docker Compose
+```bash
 # Development
 npm run dev:docker
 
@@ -109,7 +115,7 @@ npm run dev:docker
 docker-compose --env-file .env up --build
 ```
 
-### 4. Access the application
+### 5. Access the application
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:3000
 - **Swagger Docs**: http://localhost:3000/api

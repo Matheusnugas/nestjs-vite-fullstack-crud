@@ -8,7 +8,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "dev:docker": "docker-compose --env-file .env up --build",
-    "cypress:open": "cd apps/frontend && cypress open"
+    "cypress:open": "cd apps/frontend && cypress open",
+    "install:all": "npm install && cd apps/backend && npm install && cd ../frontend && npm install && cd ../.."
   },
   "devDependencies": {
     "prettier": "^3.6.2",
