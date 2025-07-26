@@ -76,7 +76,7 @@ cd taskify
 #### Root of the project project (for Docker Compose)
 Rename `env.example` to `.env` in the root directory:
 ```bash
-cp env.example .env
+cp .env.example .env
 ```
 
 #### Backend
