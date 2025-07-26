@@ -86,6 +86,10 @@ cd apps/backend
 cp .env.example .env
 ```
 
+> **Note**: The backend has two environment files:
+> - `.env.dev` - Used for Docker Compose development setup
+> - `.env` - Used for local development and E2E tests that only run on the host machine
+
 #### Frontend
 Rename `apps/frontend/.env.example` to `apps/frontend/.env`:
 ```bash
@@ -110,9 +114,11 @@ docker-compose --env-file .env up --build
 - **Backend API**: http://localhost:3000
 - **Swagger Docs**: http://localhost:3000/api
 
-## 🧪 E2E Tests
+## 🧪 Tests
 
-### Run all tests
+### Frontend E2E Tests (Cypress)
+
+#### Run all tests
 ```bash
 # From the frontend directory
 cd apps/frontend
@@ -122,7 +128,7 @@ npx cypress run
 npm run cypress:open
 ```
 
-### Run specific tests
+#### Run specific tests
 ```bash
 # From the frontend directory
 cd apps/frontend
@@ -135,7 +141,7 @@ npx cypress run --spec "cypress/e2e/register.cy.ts"
 npx cypress run --spec "cypress/e2e/tasks.cy.ts"
 ```
 
-### Open Cypress in interactive mode
+#### Open Cypress in interactive mode
 ```bash
 # From the frontend directory
 cd apps/frontend
@@ -143,6 +149,32 @@ npx cypress open
 
 # Or from the project root
 npm run cypress:open
+```
+
+### Backend Tests
+
+#### Unit Tests
+```bash
+cd apps/backend
+npm run test
+```
+
+#### E2E Tests
+```bash
+cd apps/backend
+npm run test:e2e
+```
+
+#### Test Coverage
+```bash
+cd apps/backend
+npm run test:cov
+```
+
+#### Run All Backend Tests
+```bash
+cd apps/backend
+npm run test:all
 ```
 
 ## 📋 Test Scenarios Covered
@@ -251,10 +283,18 @@ npx prisma generate
 
 ## 📊 Test Status
 
-- **✅ 18 E2E tests** running successfully
+### Frontend
+- **✅ 18 E2E tests** running successfully with Cypress
 - **✅ Complete coverage** of main flows
 - **✅ Validation tests** implemented
 - **✅ Edge case tests** included
+
+### Backend
+- **✅ Unit tests** for all services and controllers
+- **✅ E2E tests** for API endpoints
+- **✅ Test coverage** reports available
+- **✅ Authentication and authorization tests**
+- **✅ CRUD operations tests**
 
 ## 📝 License
 
@@ -263,3 +303,8 @@ This project was developed as part of a technical challenge.
 ---
 
 **Built with ❤️ using NestJS, React, Vite, TypeScript, Docker and Turborepo**
+
+---
+
+**2025, Matheus Luz Nugas**  
+https://www.linkedin.com/in/matheusluznugas
