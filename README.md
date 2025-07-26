@@ -73,7 +73,7 @@ cd taskify
 
 ### 2. Configure environment variables
 
-#### Root project (for Docker Compose)
+#### Root of the project project (for Docker Compose)
 Rename `env.example` to `.env` in the root directory:
 ```bash
 cp env.example .env
